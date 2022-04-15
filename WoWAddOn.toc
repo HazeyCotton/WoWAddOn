@@ -1,0 +1,7 @@
+## Interface: 11304
+## Title: WoWAddOn
+## Notes: Checks Active Trinket Cooldowns and provides player with information on debuffs and health status
+## Author: ColtonHazelton
+## Version: 0.0.1
+
+main.lua
