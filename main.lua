@@ -17,3 +17,8 @@ local function helloWorldHandler(name)
 end
 
 SlashCmdList["HELLO"] = helloWorldHandler
+
+
+
+local playerName = UnitName("player")
+
