@@ -17,6 +17,7 @@ local function trinketHandler()
 
     --concats values into JSON string
     trinketResult = "{start: " .. start .. ", duration: " .. duration .. ", cooldown: " .. cooldown .. "}"
+    message(trinketResult)
 
 end
 --combined with SLASH_ to create commands in WoW
@@ -43,10 +44,9 @@ SLASH_DEBUFF1 = "/debuff"
 local function debuffHandler()
     local name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitDebuff(playerName, 1)
 
-    local table = {name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId}
-
-    --Now to store into JSON files
-
+    --concats values into JSON string
+    debuffResult = "{Name: " .. name .. ", count: " .. count .. ", debuffType: " .. debuffType .. ", duration: " .. duration .. ", expirationTime: " .. expirationTime .."}"
+    message(debuffResult)
 end
 
 SlashCmdList["DEBUFF"] = debuffHandler
