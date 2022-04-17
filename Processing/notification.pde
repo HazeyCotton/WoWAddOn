@@ -1,4 +1,4 @@
-enum NotificationType { Door, PersonMoveHome, PersonMoveWork, Meeting, PersonStatus, ObjectMove, ApplianceStateChange, PackageDelivery, Message }
+enum NotificationType { Door, PersonMove, ObjectMove, ApplianceStateChange, PackageDelivery, Message }
 
 class Notification {
    

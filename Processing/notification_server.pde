@@ -11,6 +11,8 @@ class NotificationServer {
   Calendar calendar;
   private ArrayList<NotificationListener> listeners;
   private ArrayList<Notification> currentNotifications;
+  long startTime;
+  long pauseTime;
 
   public NotificationServer() {
     timer = new Timer();
@@ -23,14 +25,30 @@ class NotificationServer {
   public void loadEventStream(String eventDataJSON) {
     currentNotifications = this.getNotificationDataFromJSON(loadJSONArray(eventDataJSON));
     
+    //Getting the current date
+    Date date = new Date();
+    //This method returns the time in millis
+    startTime = date.getTime();
+    println("startTime = ", startTime);
+
     //Starting the NotificationServer (scheduling tasks) 
     for (int i = 0; i < currentNotifications.size(); i++) { //<>//
       this.scheduleTask(currentNotifications.get(i));
-    }
-    
+    } 
   }
   
   public void stopEventStream() {
+    pauseTime = 0;
+    this.stopTimer();
+  }
+  
+  public void pauseEventStream() {
+    Date date = new Date();
+    pauseTime = date.getTime() - startTime;
+    this.stopTimer();
+  }
+  
+  private void stopTimer() {
     if (timer != null)
       timer.cancel(); //stop all currently scheduled tasks
     timer = new Timer();  //create a new Timer for future scheduling
@@ -50,7 +68,9 @@ class NotificationServer {
   }
 
   public void scheduleTask(Notification notification) {
-    timer.schedule(new NotificationTask(this, notification), notification.getTimestamp());
+    if (notification.getTimestamp() >= pauseTime) {
+      timer.schedule(new NotificationTask(this, notification), notification.getTimestamp() - pauseTime);
+    }
   }
   
   public void addListener(NotificationListener listenerToAdd) {
