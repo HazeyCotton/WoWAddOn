@@ -24,8 +24,8 @@ SLASH_TRINK1 = "/trinket"
 local function trinketHandler(name)
     local trinket1 = {}
     local playerName = UnitName("player")
-    trinket1 = GetInventoryItemCooldown(playerName, 13)
-    message(trinket1)
+    local start, duration, enable = GetInventoryItemCooldown(playerName, 13)
+    message(start .. " " .. duration .. " " .. enable)
 end
 
 SlashCmdList["TRINK"] = trinketHandler
