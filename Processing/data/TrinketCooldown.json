@@ -3,5 +3,20 @@
         "start": "52200.235",
         "duration": "120",
         "cooldown": "112.425"
+    },
+    {
+        "start": "67680.946",
+        "duration": "120",
+        "cooldown": "117.561"
+    },
+    {
+        "start": "67680.946",
+        "duration": "120",
+        "cooldown": "117.561"
+    },
+    {
+        "start": "67680.946",
+        "duration": "120",
+        "cooldown": "26.694"
     }
 ]
