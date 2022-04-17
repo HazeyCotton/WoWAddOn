@@ -1,5 +1,9 @@
--- On runtime grabs user player's name for later use. it is set as a global variable
+-- Global Variables
 playerName = UnitName("player")
+healthResult = ""
+trinketResult = ""
+debuffResult = ""
+
 --SLASH_ is used to create commands in WoW
 SLASH_TRINK1 = "/trinket"
 --trinketHandler()
@@ -11,10 +15,8 @@ local function trinketHandler()
 
     local table = {start, duration, enable, cooldown}
 
-    --Now to store into JSON files
-    file = io.open("exampleTrinket.JSON", "w")
-    io.write(table)
-    io.close(file)
+    --concats values into JSON string
+    trinketResult = "{start: " .. start .. ", duration: " .. duration .. ", cooldown: " .. cooldown .. "}"
 
 end
 --combined with SLASH_ to create commands in WoW
@@ -27,12 +29,9 @@ local function healthHandler()
     local health = UnitHealth(playerName)
     local maxHealth = UnitHealthMax(playerName)
 
-    local table = {health, maxHealth}
-
-    --Now to store into JSON files
-    file = io.open("exampleHealth.JSON", "w")
-    io.write(table)
-    io.close(file)
+    --concats values into JSON string
+    healthResult = "{Health: " .. health .. ", maxHealth: " .. maxHealth .. "}"
+    message(healthResult)
 
 end
 
@@ -47,9 +46,7 @@ local function debuffHandler()
     local table = {name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId}
 
     --Now to store into JSON files
-    file = io.open("exampleDebuff.JSON", "w")
-    io.write(table)
-    io.close(file)
+
 end
 
 SlashCmdList["DEBUFF"] = debuffHandler
