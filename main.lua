@@ -1,5 +1,5 @@
 SLASH_HELLO1 = "/helloworld"
-SLASH_TRINK1 = "/trinket"
+
 
 local playerName = UnitName("player")
 
@@ -17,17 +17,18 @@ local function helloWorldHandler(name)
 end
 
 
-local TrinketInfo1 = GetInventoryItemCooldown("player", 13)
-local TrinketInfo2 = GetInventoryItemCooldown("player", 14)
-local CurrentPlayerHealth = UnitHealth(playerName)
-local MaxPlayerHealth = UnitHealthMax(playerName)
-local DebuffInfo = UnitDebuff(playerName)
+SlashCmdList["HELLO"] = helloWorldHandler
 
-local function testTrinket(TrinketInfo1)
-    message(TrinketInfo1)
+SLASH_TRINK1 = "/trinket"
+
+local function trinketHandler(name)
+    local trinket1 = {}
+    local playerName = UnitName("player")
+    trinket1 = GetInventoryItemCooldown(playerName, 13)
+    message(trinket1)
 end
 
-SlashCmdList["HELLO"] = helloWorldHandler
-SlashCmdList["TRINK"] = testTrinket
+SlashCmdList["TRINK"] = trinketHandler
+
 
 
