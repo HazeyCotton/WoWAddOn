@@ -14,5 +14,9 @@
     {
         "health": "361",
         "maxHealth": "1518"
+    },
+    {
+        "health": "1023",
+        "maxHealth": "1518"
     }
 ]

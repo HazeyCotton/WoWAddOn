@@ -18,5 +18,25 @@
         "start": "67680.946",
         "duration": "120",
         "cooldown": "26.694"
+    },
+    {
+        "start": "679549.968",
+        "duration": "120",
+        "cooldown": "88.914"
+    },
+    {
+        "start": "679549.968",
+        "duration": "120",
+        "cooldown": "54.132"
+    },
+    {
+        "start": "679549.968",
+        "duration": "120",
+        "cooldown": "42.914"
+    },
+    {
+        "start": "679549.968",
+        "duration": "120",
+        "cooldown": "9.513"
     }
 ]

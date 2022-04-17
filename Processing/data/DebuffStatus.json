@@ -1,15 +1,27 @@
 [
     {
-        "name": "",
-        "rank": "120",
-        "icon": "112.425",
-        "count": "300",
-        "debuffType": "",
-        "duration": "",
-        "expirationTime": "",
-        "unitCaster": "",
-        "isStealable": "",
-        "shouldConsolidate": "",
-        "spellId": ""
+        "name": "Rip",
+        "duration": "15",
+        "expiration": "4.047"
+    },
+    {
+        "name": "Infected Wound",
+        "duration": "20",
+        "expiration": "14.077"
+    },
+    {
+        "name": "Infected Wound",
+        "duration": "20",
+        "expiration": "1.243"
+    },
+    {
+        "name": "Dazed",
+        "duration": "4",
+        "expiration": "1.166"
+    },
+    {
+        "name": "Dazed",
+        "duration": "4",
+        "expiration": "1.166"
     }
 ]
