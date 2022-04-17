@@ -21,16 +21,17 @@ end
 
 local playerName = UnitName("player")
 
-TrinketInfo = GetInventoryItemCooldown(playerName, 14)
+TrinketInfo1 = GetInventoryItemCooldown(playerName, 13)
+TrinketInfo2 = GetInventoryItemCooldown(playerName, 14)
 CurrentPlayerHealth = UnitHealth(playerName)
 MaxPlayerHealth = UnitHealthMax(playerName)
 DebuffInfo = UnitDebuff(playerName)
 
 local function testTrinket(TrinketInfo)
-    message("Start: " .. TrinketInfo.start .. ". Duration: " .. TrinketInfo.duration)
+    message("Start: ".. TrinketInfo1.start .. ". Duration: " .. TrinketInfo1.duration .. "! Start: " .. TrinketInfo2.start .. ". Duration: " .. TrinketInfo2.duration)
 end
 
 SlashCmdList["HELLO"] = helloWorldHandler
-SlashCmdList["TRINKET"] = testTrinket
+SlashCmdList["TRINK"] = testTrinket
 
 

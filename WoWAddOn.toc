@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 90200
 ## Title: WoWAddOn
 ## Notes: Checks Active Trinket Cooldowns and provides player with information on debuffs and health status
 ## Author: ColtonHazelton
