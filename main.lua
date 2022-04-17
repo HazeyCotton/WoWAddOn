@@ -11,6 +11,11 @@ local function trinketHandler()
 
     local table = {start, duration, enable, cooldown}
 
+    --Now to store into JSON files
+    file = io.open("exampleTrinket.JSON", "w")
+    io.write(table)
+    io.close(file)
+
 end
 --combined with SLASH_ to create commands in WoW
 SlashCmdList["TRINK"] = trinketHandler
@@ -24,6 +29,11 @@ local function healthHandler()
 
     local table = {health, maxHealth}
 
+    --Now to store into JSON files
+    file = io.open("exampleHealth.JSON", "w")
+    io.write(table)
+    io.close(file)
+
 end
 
 SlashCmdList["HEALTH"] = healthHandler
@@ -36,10 +46,14 @@ local function debuffHandler()
 
     local table = {name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId}
 
+    --Now to store into JSON files
+    file = io.open("exampleDebuff.JSON", "w")
+    io.write(table)
+    io.close(file)
 end
 
 SlashCmdList["DEBUFF"] = debuffHandler
 
 
---Now to store into JSON files
+
 
