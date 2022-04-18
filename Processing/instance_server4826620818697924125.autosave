@@ -5,8 +5,6 @@ import java.util.TimerTask;
 
 class InstanceServer {
 
-    Boolean debugMode = true;
-
     Timer timer;
     Calendar calendar;
     private ArrayList<InstanceListener> listeners;

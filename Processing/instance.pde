@@ -4,6 +4,8 @@ class Instance {
     
     //Type is only used to help not process non used variables
     InstanceType type;
+    //Used for event handling (scheduling and stuffffff)
+    int timestamp;
     //Health Data
     int health;
     int maxHealth;
@@ -17,6 +19,7 @@ class Instance {
     int durationT;
 
     public Instance(JSONObject json) {
+        this.timestamp = json.getInt("timestamp");
         String typeString = json.getString("type");
 
         try {
@@ -100,6 +103,7 @@ class Instance {
     public int getStart() {return start;}
     public int getCooldown() {return cooldown;}
     public int getDurationTrinket() {return durationT;}
+    public int getTimestamp() {return timestamp;}
 
     public String toString() {
         String output = "";
