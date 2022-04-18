@@ -1,42 +1,51 @@
 [
     {
-        "start": "52200.235",
+        "type": "Trinket",
+        "timestamp": 100,
+        "start": "52200",
         "duration": "120",
-        "cooldown": "112.425"
+        "cooldown": "117"
     },
     {
+        "type": "Trinket",
+        "timestamp": 500,
         "start": "67680.946",
         "duration": "120",
-        "cooldown": "117.561"
+        "cooldown": "112"
     },
     {
+        "type": "Trinket",
+        "timestamp": 1000,
         "start": "67680.946",
         "duration": "120",
-        "cooldown": "117.561"
+        "cooldown": "88"
     },
     {
-        "start": "67680.946",
-        "duration": "120",
-        "cooldown": "26.694"
-    },
-    {
+        "type": "Trinket",
+        "timestamp": 1500,
         "start": "679549.968",
         "duration": "120",
-        "cooldown": "88.914"
+        "cooldown": "54"
     },
     {
+        "type": "Trinket",
+        "timestamp": 2000,
         "start": "679549.968",
         "duration": "120",
-        "cooldown": "54.132"
+        "cooldown": "42"
     },
     {
+        "type": "Trinket",
+        "timestamp": 2500,
         "start": "679549.968",
         "duration": "120",
-        "cooldown": "42.914"
+        "cooldown": "26"
     },
     {
+        "type": "Trinket",
+        "timestamp": 3000,
         "start": "679549.968",
         "duration": "120",
-        "cooldown": "9.513"
+        "cooldown": "9"
     }
 ]

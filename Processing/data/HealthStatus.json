@@ -1,21 +1,26 @@
 [
     {
+        "type": "Health",
         "health": "1255",
         "maxHealth": "1340"
     },
     {
+        "type": "Health",
         "health": "1518",
         "maxHealth": "1518"
     },
     {
+        "type": "Health",
         "health": "701",
         "maxHealth": "1518"
     },
     {
+        "type": "Health",
         "health": "361",
         "maxHealth": "1518"
     },
     {
+        "type": "Health",
         "health": "1023",
         "maxHealth": "1518"
     }

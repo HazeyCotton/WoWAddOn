@@ -23,8 +23,9 @@ TextToSpeechMaker ttsMaker;
 //Example usage below.
 
 //name of a file to load from the data directory
-String eventDataJSON2 = "smarthome_party.json";
-String eventDataJSON1 = "smarthome_parent_night_out.json";
+String eventDataJSON3 = "TrinketCooldown.json";
+String eventDataJSON2 = "HealthStatus.json";
+String eventDataJSON1 = "DebuffStatus.json";
 
 NotificationServer notificationServer;
 ArrayList<Notification> notifications;
@@ -41,7 +42,7 @@ void setup() {
   //which you will then need to hook up to SamplePlayer Beads
   ttsMaker = new TextToSpeechMaker();
   
-  String exampleSpeech = "Text to speech is okay, I guess.";
+  String exampleSpeech = "poggers.";
   
   ttsExamplePlayback(exampleSpeech); //see ttsExamplePlayback below for usage
   
