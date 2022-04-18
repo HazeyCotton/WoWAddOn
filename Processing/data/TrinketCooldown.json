@@ -2,6 +2,7 @@
     {
         "type": "Trinket",
         "timestamp": 100,
+        "priority": 1,
         "start": "52200",
         "duration": "120",
         "cooldown": "117"
@@ -9,6 +10,7 @@
     {
         "type": "Trinket",
         "timestamp": 500,
+        "priority": 3,
         "start": "67680.946",
         "duration": "120",
         "cooldown": "112"
@@ -16,6 +18,7 @@
     {
         "type": "Trinket",
         "timestamp": 1000,
+        "priority": 3,
         "start": "67680.946",
         "duration": "120",
         "cooldown": "88"
@@ -23,6 +26,7 @@
     {
         "type": "Trinket",
         "timestamp": 1500,
+        "priority": 3,
         "start": "679549.968",
         "duration": "120",
         "cooldown": "54"
@@ -30,6 +34,7 @@
     {
         "type": "Trinket",
         "timestamp": 2000,
+        "priority": 3,
         "start": "679549.968",
         "duration": "120",
         "cooldown": "42"
@@ -37,6 +42,7 @@
     {
         "type": "Trinket",
         "timestamp": 2500,
+        "priority": 2,
         "start": "679549.968",
         "duration": "120",
         "cooldown": "26"
@@ -44,6 +50,7 @@
     {
         "type": "Trinket",
         "timestamp": 3000,
+        "priority": 1,
         "start": "679549.968",
         "duration": "120",
         "cooldown": "9"

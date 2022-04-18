@@ -2,6 +2,7 @@
     {
         "type": "Debuff",
         "timestamp": 100,
+        "priority": 2,
         "name": "Rip",
         "duration": "15",
         "expiration": "10"
@@ -9,6 +10,7 @@
     {
         "type" : "Debuff",
         "timestamp": 500,
+        "priority": 3,
         "name": "Rip",
         "duration": "15",
         "expiration": "5"
@@ -16,6 +18,7 @@
     {
         "type": "Debuff",
         "timestamp": 1000,
+        "priority": 2,
         "name": "Infected Wound",
         "duration": "20",
         "expiration": "20"
@@ -23,6 +26,7 @@
     {
         "type": "Debuff",
         "timestamp": 1000,
+        "priority": 1,
         "name": "Rip", 
         "duration": "15",
         "expiration": "1"
@@ -30,6 +34,7 @@
     {
         "type": "Debuff",
         "timestamp": 1500,
+        "priority": 3,
         "name": "Infected Wound",
         "duration": "20",
         "expiration": "15"
@@ -37,6 +42,7 @@
     {
         "type": "Debuff",
         "timestamp": 1500,
+        "priority": 2,
         "name": "Dazed",
         "duration": "4",
         "expiration": "4"
@@ -44,6 +50,7 @@
     {
         "type": "Debuff",
         "timestamp": 1900,
+        "priority": 1,
         "name": "Dazed",
         "duration": "4",
         "expiration": "1"
@@ -51,6 +58,7 @@
     {
         "type": "Debuff",
         "timestamp": 2000,
+        "priority": 3,
         "name": "Infected Wound",
         "duration": "20",
         "expiration": "10"
@@ -58,6 +66,7 @@
     {
         "type": "Debuff",
         "timestamp": 2500,
+        "priority": 3,
         "name": "Infected Wound",
         "duration": "20",
         "expiration": "5"
@@ -65,6 +74,7 @@
     {
         "type": "Debuff",
         "timestamp": 3000,
+        "priority": 1,
         "name": "Infected Wound", 
         "duration": "20",
         "expiration": "1"

@@ -6,6 +6,8 @@ class Instance {
     InstanceType type;
     //Used for event handling (scheduling and stuffffff)
     int timestamp;
+    //Used for deciding the intensity of the event
+    int priority;
     //Health Data
     int health;
     int maxHealth;
@@ -17,6 +19,7 @@ class Instance {
     int start;
     int cooldown;
     int durationT;
+
 
     public Instance(JSONObject json) {
         this.timestamp = json.getInt("timestamp");
@@ -92,6 +95,8 @@ class Instance {
             this.health = 0;
             this.maxHealth = 0;
         }
+
+        this.priority = json.getInt("priority");
     }
 
     public InstanceType getType() {return type;}
@@ -104,6 +109,7 @@ class Instance {
     public int getCooldown() {return cooldown;}
     public int getDurationTrinket() {return durationT;}
     public int getTimestamp() {return timestamp;}
+    public int getPriority() {return priority;}
 
     public String toString() {
         String output = "";
