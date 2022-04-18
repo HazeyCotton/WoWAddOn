@@ -1,44 +1,44 @@
 [
     {
         "type": "Health",
-        "timestamp": 100,
-        "priority": 3,
-        "health": "1255",
-        "maxHealth": "1340"
-    },
-    {
-        "type": "Health",
-        "timestamp": 500,
-        "priority": 3,
-        "health": "1518",
-        "maxHealth": "1518"
-    },
-    {
-        "type": "Health",
         "timestamp": 1000,
         "priority": 3,
-        "health": "701",
-        "maxHealth": "1518"
+        "health": 1255,
+        "maxHealth": 1340
     },
     {
         "type": "Health",
-        "timestamp": 1500,
-        "priority": 2,
-        "health": "361",
-        "maxHealth": "1518"
-    },
-    {
-        "type": "Health",
-        "timestamp": 2000,
+        "timestamp": 5000,
         "priority": 3,
-        "health": "1023",
-        "maxHealth": "1518"
+        "health": 1518,
+        "maxHealth": 1518
     },
     {
         "type": "Health",
-        "timestamp": 2500,
+        "timestamp": 10000,
+        "priority": 3,
+        "health": 701,
+        "maxHealth": 1518
+    },
+    {
+        "type": "Health",
+        "timestamp": 15000,
         "priority": 2,
-        "health": "100",
-        "maxHealth": "1518"
+        "health": 361,
+        "maxHealth": 1518
+    },
+    {
+        "type": "Health",
+        "timestamp": 20000,
+        "priority": 3,
+        "health": 1023,
+        "maxHealth": 1518
+    },
+    {
+        "type": "Health",
+        "timestamp": 25000,
+        "priority": 2,
+        "health": 100,
+        "maxHealth": 1518
     }
 ]

@@ -2,102 +2,199 @@ import beads.*;
 import org.jaudiolibs.beads.*;
 import controlP5.*;
 
-ControlP5 p5;
+  ControlP5 p5;
+  Button startEventStream;
+  Button pauseEventStream;
+  Button stopEventStream;
 
-Button startEventStream;
-Button pauseEventStream;
-Button stopEventStream;
+  TextToSpeechMaker ttsMaker; 
 
-//to use text to speech functionality, copy text_to_speech.pde from this sketch to yours
-//example usage below
+  SamplePlayer trinketPlayer = null;
+  SamplePlayer debuffPlayer = null;
+  BiquadFilter trinketFilter;
+  BiquadFilter debuffFilter;
 
-//IMPORTANT (notice from text_to_speech.pde):
-//to use this you must import 'ttslib' into Processing, as this code uses the included FreeTTS library
-//e.g. from the Menu Bar select Sketch -> Import Library... -> ttslib
+  String eventDataJSON3 = "TrinketCooldown.json";
+  String eventDataJSON2 = "HealthStatus.json";
+  String eventDataJSON1 = "DebuffStatus.json";
 
-TextToSpeechMaker ttsMaker; 
+  NotificationServer notificationServer;
+  ArrayList<Notification> notifications;
 
-//<import statements here>
+  MyNotificationListener myNotificationListener;
 
-//to use this, copy notification.pde, notification_listener.pde and notification_server.pde from this sketch to yours.
-//Example usage below.
+  Gain masterGain;
+  Glide gainGlide;
+  SamplePlayer healthPlayer = null;
+  BiquadFilter healthFilter;
 
-//name of a file to load from the data directory
-String eventDataJSON3 = "TrinketCooldown.json";
-String eventDataJSON2 = "HealthStatus.json";
-String eventDataJSON1 = "DebuffStatus.json";
-
-NotificationServer notificationServer;
-ArrayList<Notification> notifications;
-
-MyNotificationListener myNotificationListener;
-
-void setup() {
-  size(300,180);
-  p5 = new ControlP5(this);
+  void setup() {
+    size(280,200);
+    p5 = new ControlP5(this);
   
-  ac = new AudioContext(); //ac is defined in helper_functions.pde
+    ac = new AudioContext(); //ac is defined in helper_functions.pde
   
-  //this will create WAV files in your data directory from input speech 
-  //which you will then need to hook up to SamplePlayer Beads
-  ttsMaker = new TextToSpeechMaker();
+    gainGlide = new Glide(ac, 1.0, 500);
+    masterGain = new Gain(ac, 1, gainGlide);
   
-  String exampleSpeech = "poggers.";
+    healthPlayer = getSamplePlayer("HealthNoise.wav");
+    healthPlayer.pause(true);
   
-  ttsExamplePlayback(exampleSpeech); //see ttsExamplePlayback below for usage
+    healthFilter = new BiquadFilter(ac, BiquadFilter.AP, 1000.0, 0.5f);
+    healthFilter.addInput(healthPlayer);
+     
+    trinketPlayer = getSamplePlayer("TrinketNoise.wav");
+    trinketPlayer.pause(true);
+    debuffPlayer = getSamplePlayer("DebuffNoise.wav");
+    debuffPlayer.pause(true);
+     
+    trinketFilter = new BiquadFilter(ac, BiquadFilter.AP, 1000.0, 0.5f);
+    debuffFilter = new BiquadFilter(ac, BiquadFilter.AP, 1000.0, 0.5f);
+    trinketFilter.addInput(trinketPlayer);
+    debuffFilter.addInput(debuffPlayer);
+     
+    masterGain.addInput(trinketFilter);
+    masterGain.addInput(debuffFilter);
+    masterGain.addInput(healthFilter);
   
-  //START NotificationServer setup
-  notificationServer = new NotificationServer();
+    ac.out.addInput(masterGain);
+
+    ttsMaker = new TextToSpeechMaker();
   
-  //instantiating a custom class (seen below) and registering it as a listener to the server
-  myNotificationListener = new MyNotificationListener();
-  notificationServer.addListener(myNotificationListener);
+    notificationServer = new NotificationServer();
+  
+    myNotificationListener = new MyNotificationListener();
+    notificationServer.addListener(myNotificationListener);
     
-  //END NotificationServer setup
-  
-  startEventStream = p5.addButton("startEventStream")
-    .setPosition(40,20)
-    .setSize(150,20)
-    .setLabel("Start Event Stream");
+    startEventStream = p5.addButton("startEventStream")
+      .setPosition(0,15)
+      .setSize(100,20)
+      .setLabel("Start Event Stream");
     
-  startEventStream = p5.addButton("pauseEventStream")
-    .setPosition(40,60)
-    .setSize(150,20)
-    .setLabel("Pause Event Stream");
+    startEventStream = p5.addButton("pauseEventStream")
+      .setPosition(0,40)
+      .setSize(100,20)
+      .setLabel("Pause Event Stream");
  
-  startEventStream = p5.addButton("stopEventStream")
-    .setPosition(40,100)
-    .setSize(150,20)
-    .setLabel("Stop Event Stream");
+    startEventStream = p5.addButton("stopEventStream")
+      .setPosition(0,65)
+      .setSize(100,20)
+      .setLabel("Stop Event Stream");
     
-  ac.start();
-}
+    p5.addSlider("GainSlider")
+      .setPosition(10, 120)
+      .setSize(120, 20)
+      .setRange(0, 100)
+      .setValue(50)
+      .setLabel("Gain");
+    
+    Button playHealth = p5.addButton("playHealth")
+     .setPosition(200, 10)
+     .setSize(60, 50)
+     .activateBy((ControlP5.RELEASE))
+     .setLabel("Health Alert");
+    
+    Button playTrinket = p5.addButton("playTrinket")
+      .setPosition(200, 80)
+      .setSize(60, 50)
+      .activateBy((ControlP5.RELEASE))
+      .setLabel("Trinket Alert");
+    
+    Button playDebuff = p5.addButton("playDebuff")
+      .setPosition(200, 150)
+      .setSize(60, 50)
+      .activateBy((ControlP5.RELEASE))
+      .setLabel("Debuff Alert");
+      
+    p5.addButton("priorityOne")
+      .setPosition(20, 180)
+      .setSize(20, 20)
+      .activateBy((ControlP5.RELEASE))
+      .setLabel("1");
+      
+    p5.addButton("priorityTwo")
+      .setPosition(45, 180)
+      .setSize(20, 20)
+      .activateBy((ControlP5.RELEASE))
+      .setLabel("2");
+    
+    p5.addButton("priorityThree")
+      .setPosition(70, 180)
+      .setSize(20, 20)
+      .activateBy((ControlP5.RELEASE))
+      .setLabel("3");
+     
+     ac.start();
+  }
 
-void startEventStream(int value) {
-  //loading the event stream, which also starts the timer serving events
-  notificationServer.loadEventStream(eventDataJSON1);
-}
+  void startEventStream(int value) {
+    //loading the event stream, which also starts the timer serving events
+    notificationServer.loadEventStream(eventDataJSON1);
+  }
 
-void pauseEventStream(int value) {
-  //loading the event stream, which also starts the timer serving events
-  notificationServer.pauseEventStream();
-}
+  void pauseEventStream(int value) {
+    //loading the event stream, which also starts the timer serving events
+    notificationServer.pauseEventStream();
+  }
 
-void stopEventStream(int value) {
-  //loading the event stream, which also starts the timer serving events
-  notificationServer.stopEventStream();
-}
+  void stopEventStream(int value) {
+    //loading the event stream, which also starts the timer serving events
+    notificationServer.stopEventStream();
+  }
+  
+  void GainSlider(float value) {
+    gainGlide.setValue(value/100.0);
+  }
+
+  void playHealth() {
+    healthPlayer.start(0.0);
+  }
+  
+  void playTrinket() {
+    trinketPlayer.start(0.0);
+  }
+  
+  void playDebuff() {
+    debuffPlayer.start(0.0);
+  }
+  
+  void priorityOne() {
+    healthFilter.setType(BiquadFilter.LP);
+    trinketFilter.setType(BiquadFilter.LP);
+    debuffFilter.setType(BiquadFilter.LP);
+  }
+  
+  void priorityTwo() {
+    healthFilter.setType(BiquadFilter.HP);
+    trinketFilter.setType(BiquadFilter.HP);
+    debuffFilter.setType(BiquadFilter.HP);
+  }
+  
+  void priorityThree() {
+    healthFilter.setType(BiquadFilter.AP);
+    trinketFilter.setType(BiquadFilter.AP);
+    debuffFilter.setType(BiquadFilter.AP);
+  }
 
 void draw() {
   //this method must be present (even if empty) to process events such as keyPressed()  
+  background(color(75, 0, 130));
 }
 
 void keyPressed() {
   //example of stopping the current event stream and loading the second one
-  if (key == RETURN || key == ENTER) {
+  if (key == TAB) {
     notificationServer.stopEventStream(); //always call this before loading a new stream
     notificationServer.loadEventStream(eventDataJSON2);
-    println("**** New event stream loaded: " + eventDataJSON2 + " ****");
+    println("**** New event stream loaded: " + eventDataJSON2 + "   ****");
+  } else if (key == BACKSPACE) {
+    notificationServer.stopEventStream();
+    notificationServer.loadEventStream(eventDataJSON3);
+    println("**** New event stream loaded: " + eventDataJSON3 + " ****");
+  } else if (key == ENTER) {
+    notificationServer.stopEventStream();
+    notificationServer.loadEventStream(eventDataJSON1);
+    println("**** New event stream loaded: " + eventDataJSON1 + " ****");
   }
     
 }
@@ -107,62 +204,107 @@ void keyPressed() {
 class MyNotificationListener implements NotificationListener {
   
   public MyNotificationListener() {
-    //setup here
+    
   }
   
+  BiquadFilter filter;
+  Gain g;
+  
   //this method must be implemented to receive notifications
-  public void notificationReceived(Notification notification) { 
-    println("<Example> " + notification.getType().toString() + " notification received at " 
+  public void notificationReceived(Notification notification) {  
+    println("<Example> " + notification.getType().toString() + " instance received at " 
     + Integer.toString(notification.getTimestamp()) + " ms");
+    
+    SamplePlayer sp = null;
+    filter = new BiquadFilter(ac, BiquadFilter.AP, 1000.0, 0.5f); 
+    g = new Gain(ac, 1, 1.0);
     
     String debugOutput = ">>> ";
     switch (notification.getType()) {
-      case Door:
-        debugOutput += "Door moved: ";
+      case Health:
+        debugOutput += "Health changed: ";
         break;
-      case PersonMove:
-        debugOutput += "Person moved: ";
+      case Trinket:
+        debugOutput += "Trinket changed: ";
+        sp = getSamplePlayer("TrinketNoise.wav", true);
         break;
-      case ObjectMove:
-        debugOutput += "Object moved: ";
-        break;
-      case ApplianceStateChange:
-        debugOutput += "Appliance changed state: ";
-        break;
-      case PackageDelivery:
-        debugOutput += "Package delivered: ";
-        break;
-      case Message:
-        debugOutput += "New message: ";
+      case Debuff:
+        debugOutput += "Debuff changed: ";
+        sp = getSamplePlayer("DebuffNoise.wav", true);
         break;
     }
     debugOutput += notification.toString();
-    //debugOutput += notification.getLocation() + ", " + notification.getTag();
     
     println(debugOutput);
+ 
+    String type = notification.getType().toString();
+    int priority = notification.getPriority();
     
-   //You can experiment with the timing by altering the timestamp values (in ms) in the exampleData.json file
-    //(located in the data directory)
-  }
+    if (type == "Health") {
+      int health = notification.getHealth();
+      sp = getSamplePlayer("HealthNoise.wav", true);
+      if (health < 500) {
+        filter.setType(BiquadFilter.AP);
+        ttsExamplePlayback("Run away!", 3.0);
+      } else if (health < 1000) {
+        filter.setType(BiquadFilter.HP);
+      } else {
+        filter.setType(BiquadFilter.LP);
+      }
+    } else if (type == "Trinket") {
+      int cooldown = notification.getCooldown();
+      sp = getSamplePlayer("TrinketNoise.wav", true);
+      if (cooldown > 60) {
+        filter.setType(BiquadFilter.LP);
+        g.setGain(0.25);
+      } else if (cooldown > 30) {
+        filter.setType(BiquadFilter.HP);
+        g.setGain(0.5);
+      } else {
+        filter.setType(BiquadFilter.AP);
+        g.setGain(1.0);
+      }
+    } else if (type == "Debuff") {
+      int expiration = notification.getExpiration();
+      int duration = notification.getDurationDebuff();
+      float reference = expiration / duration;
+      String name = notification.getName();
+      if (priority == 1) {
+        g.setGain(1.0);
+      } else if (priority == 2) {
+        g.setGain(0.5);
+        ttsExamplePlayback(name, 1.0);
+      } else {
+        g.setGain(0.25);
+      }
+      
+      if (reference > 0.5) {
+        filter.setType(BiquadFilter.LP);
+      } else if (reference > 0.25) {
+        filter.setType(BiquadFilter.HP);
+      } else {
+        filter.setType(BiquadFilter.AP);
+      }
+      
+    }
+    filter.addInput(sp);
+    g.addInput(filter);
+    ac.out.addInput(g);
+    sp.setToLoopStart();
+    sp.start();
+   }
 }
 
-void ttsExamplePlayback(String inputSpeech) {
-  //create TTS file and play it back immediately
-  //the SamplePlayer will remove itself when it is finished in this case
+Gain g;
+void ttsExamplePlayback(String inputSpeech, float g) {
   
   String ttsFilePath = ttsMaker.createTTSWavFile(inputSpeech);
   println("File created at " + ttsFilePath);
-  
-  //createTTSWavFile makes a new WAV file of name ttsX.wav, where X is a unique integer
-  //it returns the path relative to the sketch's data directory to the wav file
-  
-  //see helper_functions.pde for actual loading of the WAV file into a SamplePlayer
-  
+
   SamplePlayer sp = getSamplePlayer(ttsFilePath, true); 
-  //true means it will delete itself when it is finished playing
-  //you may or may not want this behavior!
-  
-  ac.out.addInput(sp);
+  Gain mg = new Gain(ac, 1, g);
+  mg.addInput(sp);
+  ac.out.addInput(mg);
   sp.setToLoopStart();
   sp.start();
   println("TTS: " + inputSpeech);

@@ -1,82 +1,82 @@
 [
     {
         "type": "Debuff",
-        "timestamp": 100,
+        "timestamp": 1000,
         "priority": 2,
         "name": "Rip",
-        "duration": "15",
-        "expiration": "10"
+        "duration": 15,
+        "expiration": 10
     },
     {
         "type" : "Debuff",
-        "timestamp": 500,
+        "timestamp": 5000,
         "priority": 3,
         "name": "Rip",
-        "duration": "15",
-        "expiration": "5"
+        "duration": 15,
+        "expiration": 5
     },
     {
         "type": "Debuff",
-        "timestamp": 1000,
+        "timestamp": 10000,
         "priority": 2,
         "name": "Infected Wound",
-        "duration": "20",
-        "expiration": "20"
+        "duration": 20,
+        "expiration": 20
     },
     {
         "type": "Debuff",
-        "timestamp": 1000,
+        "timestamp": 10000,
         "priority": 1,
         "name": "Rip", 
-        "duration": "15",
-        "expiration": "1"
+        "duration": 15,
+        "expiration": 1
     },
     {
         "type": "Debuff",
-        "timestamp": 1500,
+        "timestamp": 15000,
         "priority": 3,
         "name": "Infected Wound",
-        "duration": "20",
-        "expiration": "15"
+        "duration": 20,
+        "expiration": 15
     },
     {
         "type": "Debuff",
-        "timestamp": 1500,
+        "timestamp": 15000,
         "priority": 2,
         "name": "Dazed",
-        "duration": "4",
-        "expiration": "4"
+        "duration": 4,
+        "expiration": 4
     },
     {
         "type": "Debuff",
-        "timestamp": 1900,
+        "timestamp": 19000,
         "priority": 1,
         "name": "Dazed",
-        "duration": "4",
-        "expiration": "1"
+        "duration": 4,
+        "expiration": 1
     },
     {
         "type": "Debuff",
-        "timestamp": 2000,
+        "timestamp": 20000,
         "priority": 3,
         "name": "Infected Wound",
-        "duration": "20",
-        "expiration": "10"
+        "duration": 20,
+        "expiration": 10
     },
     {
         "type": "Debuff",
-        "timestamp": 2500,
+        "timestamp": 25000,
         "priority": 3,
         "name": "Infected Wound",
-        "duration": "20",
-        "expiration": "5"
+        "duration": 20,
+        "expiration": 5
     },
     {
         "type": "Debuff",
-        "timestamp": 3000,
+        "timestamp": 30000,
         "priority": 1,
         "name": "Infected Wound", 
-        "duration": "20",
-        "expiration": "1"
+        "duration": 20,
+        "expiration": 1
     }
 ]

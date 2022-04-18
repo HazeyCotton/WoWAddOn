@@ -1,76 +1,111 @@
-enum NotificationType { Door, PersonMove, ObjectMove, ApplianceStateChange, PackageDelivery, Message }
+enum NotificationType { Health, Debuff, Trinket }
 
 class Notification {
-   
-  int timestamp;
-  NotificationType type; // door, person_move, object_move, appliance_state_change, package_delivery, message
-  String note;
-  String location;
-  String tag;
-  String flag;
-  int priority;
-  
-  public Notification(JSONObject json) {
-    this.timestamp = json.getInt("timestamp");
-    //time in milliseconds for playback from sketch start
     
-    String typeString = json.getString("type");
-    
-    try {
-      this.type = NotificationType.valueOf(typeString);
+    //Type is only used to help not process non used variables
+    NotificationType type;
+    //Used for event handling (scheduling and stuffffff)
+    int timestamp;
+    //Used for deciding the intensity of the event
+    int priority;
+    //Health Data
+    int health;
+    int maxHealth;
+    //Debuff Data
+    String name;
+    int durationD;
+    int expiration;
+    //Trinket Data
+    int start;
+    int cooldown;
+    int durationT;
+
+
+    public Notification(JSONObject json) {
+        this.timestamp = json.getInt("timestamp");
+        String typeString = json.getString("type");
+
+        try {
+            this.type = NotificationType.valueOf(typeString);
+        } 
+        catch (IllegalArgumentException e) {
+            throw new RuntimeException(typeString + "is not a valid value for enum InstanceType");
+        }
+
+        //Checks type and only uses pertenient information
+        //health and maxhealth
+        if (json.isNull("health")) {
+          this.health = 0;
+          print("null");
+        } else {
+          this.health = json.getInt("health");
+        }
+
+        if (json.isNull("maxHealth")) {
+          this.maxHealth = 0;
+        } else {
+          this.maxHealth = json.getInt("maxHealth");
+        }
+        //name, durationD (debuff), and expiration
+        if (json.isNull("name")) {
+          this.name = "";
+        } else {
+          this.name = json.getString("name");
+        }
+        if (json.isNull("duration")) {
+          this.durationD = 0;
+        } else {
+          this.durationD = json.getInt("duration");
+        }
+        if (json.isNull("expiration")) {
+          this.expiration = 0;
+        } else {
+          this.expiration = json.getInt("expiration");
+        }
+        //start, cooldown, and durationT (trinket)
+        if (json.isNull("start")) {
+          this.start = 0;
+        } else {
+          this.start = json.getInt("start");
+        }
+        if (json.isNull("cooldown")) {
+          this.cooldown = 0;
+        } else {
+          this.cooldown = json.getInt("cooldown");
+        }
+        if (json.isNull("duration")) {
+          this.durationD = 0;
+        } else {
+          this.durationD = json.getInt("duration");
+        }
+
+        this.priority = json.getInt("priority");
     }
-    catch (IllegalArgumentException e) {
-      throw new RuntimeException(typeString + " is not a valid value for enum NotificationType.");
-    }
-    
-    
-    if (json.isNull("note")) {
-      this.note = "";
-    }
-    else {
-      this.note = json.getString("note");
-    }
-    
-    if (json.isNull("location")) {
-      this.location = "";
-    }
-    else {
-      this.location = json.getString("location");      
-    }
-    
-    if (json.isNull("tag")) {
-      this.tag = "";
-    }
-    else {
-      this.tag = json.getString("tag");      
-    }
-    
-    if (json.isNull("flag")) {
-      this.flag = "";
-    }
-    else {
-      this.flag = json.getString("flag");      
-    }
-    
-    this.priority = json.getInt("priority");
-    //1-3 levels (1 is highest, 3 is lowest)    
-  }
-  
-  public int getTimestamp() { return timestamp; }
-  public NotificationType getType() { return type; }
-  public String getNote() { return note; }
-  public String getLocation() { return location; }
-  public String getTag() { return tag; }
-  public String getFlag() { return flag; }
-  public int getPriorityLevel() { return priority; }
-  
-  public String toString() {
-      String output = getType().toString() + ": ";
-      output += "(location: " + getLocation() + ") ";
-      output += "(tag: " + getTag() + ") ";
-      output += "(flag: " + getFlag() + ") ";
-      output += "(priority: " + getPriorityLevel() + ") ";
-      output += "(note: " + getNote() + ") ";
-      return output;
+
+    public NotificationType getType() {return type;}
+    public int getHealth() {return health;}
+    public int getMaxHealth() {return maxHealth;}
+    public String getName() {return name;}
+    public int getDurationDebuff() {return durationD;}
+    public int getExpiration() {return expiration;}
+    public int getStart() {return start;}
+    public int getCooldown() {return cooldown;}
+    public int getDurationTrinket() {return durationT;}
+    public int getTimestamp() {return timestamp;}
+    public int getPriority() {return priority;}
+
+    public String toString() {
+        String output = "";
+        String typeString = this.type.toString();
+        if (typeString == "Health") {
+            output = "(Health: " + getHealth() + ", MaxHealth: " + getMaxHealth() + ")";
+        } else if (typeString == "Trinket") {
+            output = "(Start: " + getStart() + ", Cooldown: " + getCooldown() + ", Duration: " + getDurationDebuff() + ")";
+        } else if (typeString == "Debuff") {
+            output = "(Name: " + getName() + ", Duration: " + getDurationDebuff() + ", Expiration: " + getExpiration() + ")";
+        } else {
+            output = "Empty JSON given";
+        }
+        return output;
     }
 }
